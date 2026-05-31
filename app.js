@@ -1,0 +1,27 @@
+// here lies information for the computer/server noticed all dependencies except mongoose called here seems like a coincidence there should be other function specific dependencies like mongoose
+
+const express = require ("express")
+const morgan = require("morgan");
+require ("dotenv").config();
+const connectDb = require("./src/config/db");
+const app = express();
+const userRoutes = require("./src/routes/routes.js")
+
+const port = process.env.PORT|| 4000;
+//middle ware declare tells computer/server to use middleware
+app.use(express.json());
+app.use(morgan("dev"));
+
+//routes tels computer how to use routes
+app.use("/api", userRoutes);
+app.get("/", (req,res) =>{
+    res.send("Home Page!");
+})
+
+
+
+// funny improvement on my side this connects to db before running on port might be an inefficent format but i don't wanna use if or something like that here
+connectDb().then(()=>{app.listen(port, () =>{
+    console.log("server is running for real");
+});
+});
