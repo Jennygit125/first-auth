@@ -20,6 +20,7 @@ router.get("/user/profile", isAuthentication, authorizeRoles("admin","moderator"
 //lowest level access
 
 router.get("/moderator/reports", isAuthentication, authorizeRoles("admin", "moderator"), getReport);
+router.get("/admin/reports", isAuthentication, authorizeRoles("admin"), getReport);
 //moderator report fetching only 
 
 router.post("/moderator/reports", isAuthentication, authorizeRoles("moderator"), createReport);
