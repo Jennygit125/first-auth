@@ -2,6 +2,7 @@
 
 const express = require ("express")
 const morgan = require("morgan");
+const cors = require("cors");
 require ("dotenv").config();
 const connectDb = require("./src/config/db");
 const app = express();
@@ -9,6 +10,10 @@ const userRoutes = require("./src/routes/routes.js")
 
 const port = process.env.PORT|| 4000;
 //middle ware declare tells computer/server to use middleware
+app.use(cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:3900",
+    credentials: true
+}));
 app.use(express.json());
 app.use(morgan("dev"));
 
