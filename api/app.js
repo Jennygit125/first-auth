@@ -7,7 +7,7 @@ require ("dotenv").config();
 const connectDb = require("../src/config/db.js");
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000',
+   origin: process.env.ALLOWED_ORIGINS?.split(',') || 'http://localhost:3000',
   credentials: true // This is required if you are sending cookies or authorization headers
 }));
 const userRoutes = require("../src/routes/routes.js")
