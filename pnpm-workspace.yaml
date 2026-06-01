@@ -1,2 +1,3 @@
 allowBuilds:
   bcrypt: true
+  inotify: set this to true or false
