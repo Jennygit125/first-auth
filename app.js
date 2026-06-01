@@ -26,7 +26,7 @@ app.get("/", (req,res) =>{
 
 
 // funny improvement on my side this connects to db before running on port might be an inefficent format but i don't wanna use if or something like that here
-connectDb().then
+connectDb();
 if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
