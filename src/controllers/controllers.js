@@ -312,6 +312,14 @@ const makeAdmin = async (req,res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+        if (req.user.role === "moderator" && user.role !== "user") {
+            return res.status(403).json({ message: "Moderators are only authorized to lock standard users" });
+        }
+
+        if (req.user.role === "admin" && user.role === "admin") {
+            return res.status(403).json({ message: "Administrators cannot lock other admin accounts" });
+        }
+
         const now = new Date();
         let lockUntil;
 
