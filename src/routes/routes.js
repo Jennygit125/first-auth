@@ -2,13 +2,13 @@ const express = require ("express");
 /*I think express is needed to run any path it handles req and res type stuff*/
 
 const { signUp, signIn, makeAdmin, getAllUsers, publicMessage, getProfile, getReport, createReport, deleteUser, manualLockUser } = require("../controllers/controllers"); 
-/*my functionic variable import was written automatically by vscode Note:- the router.post thing is case sensitive had to write the import manually then realised i wrote SignUp instead of signUp */
+/*my functionic variable import was written automatically by vscode Note:- the router.post thing is case sensitive had to write the import manually at first then realized i wrote SignUp instead of signUp */
 
 const { isAuthentication, authorizeRoles } = require("../utils/Authentication"); 
 // authenticates and stuff
 
 const router = express.Router(); 
-/*Seems router is an express thingy makes sense since routes are paths*/
+/*Seems router is an express thing makes sense since routes are paths*/
 
 router.post("/signUp", signUp);
 //sign up above quite obvious

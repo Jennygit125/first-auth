@@ -25,7 +25,7 @@ app.get("/", (req,res) =>{
 
 
 
-// funny improvement on my side this connects to db before running on port might be an inefficent format but i don't wanna use if or something like that here
+//this connects to db before running on port might be an inefficent format but i don't wanna use if or something like that here
 connectDb();
 if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 4000;
@@ -33,6 +33,6 @@ if (process.env.NODE_ENV !== 'production') {
     console.log(`Server running locally on port ${PORT}`);
   });
 }
-// i like how fast vercel can be but this thing causes issues sometimes
-// Export the app for Vercel's serverless environment
+// i like how fast vercel can be but this thing causes issues sometimes could not make it work on vercel lol
+// Export the app for Vercel's serverless environment failed not enough time and couldn't find the issue
 module.exports = app;
