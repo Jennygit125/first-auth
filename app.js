@@ -1,20 +1,25 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const helmet = require("helmet");
+const compression = require("compression");
 require("dotenv").config();
 const connectDb = require("./src/config/db");
 const userRoutes = require("./src/routes/routes.js");
 
 const app = express();
 const port = process.env.PORT || 4000;
+const isProduction = process.env.NODE_ENV === "production";
 
 // Middleware
+app.use(helmet()); // Sets various HTTP headers for security
+app.use(compression()); // Compresses response bodies for better performance
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3900",
     credentials: true
 }));
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan(isProduction ? "combined" : "dev"));
 
 // Routes
 app.get("/", (req, res) => {
@@ -44,3 +49,6 @@ connectDb()
         console.error("Error connecting to MongoDB:", error.message);
         process.exit(1); // Exit process with failure
     });
+
+// Export for Vercel compatibility
+module.exports = app;
