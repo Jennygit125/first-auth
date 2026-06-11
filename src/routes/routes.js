@@ -10,11 +10,15 @@ const { isAuthentication, authorizeRoles } = require("../utils/Authentication");
 const router = express.Router(); 
 /*Seems router is an express thingy makes sense since routes are paths*/
 
-router.post("/signUp", signUp);
-//sign up above quite obvious
 
 router.get("/public/message", publicMessage);
 //a message to u all
+
+router.post("/signUp", signUp);
+//sign up above quite obvious
+
+router.post("/signIn", signIn);
+//sign in here
 
 router.get("/user/profile", isAuthentication, authorizeRoles("admin","moderator", "user"), getProfile);
 //lowest level access
@@ -32,8 +36,7 @@ router.delete("/admin/user/:id", isAuthentication, authorizeRoles("admin"), dele
 router.post("/user/:id/lock", isAuthentication, authorizeRoles("admin", "moderator"), manualLockUser);
 //moderator locks for 1 day, admin can choose duration
 
-router.post("/signIn", signIn);
-//sign in here
+
 
 router.post(
   "/admin/promote/:id",
@@ -44,7 +47,7 @@ router.post(
 //looks complicated but simply makes a user admin only admin can make admin
 
 router.get("/admin/getAllUsers", isAuthentication, authorizeRoles("admin","moderator"), getAllUsers);
-//only admin can view all users gives info needed to delete 
+//only admin or Mod can view all users gives info needed to delete 
 
 
 module.exports = router;//routes needs to be known by machine so it can be called

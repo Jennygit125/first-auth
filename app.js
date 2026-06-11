@@ -18,10 +18,11 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //routes tels computer how to use routes
-app.use("/api", userRoutes);
+
 app.get("/", (req,res) =>{
     res.send("Home Page!");
 })
+app.use("/api", userRoutes);
 
 
 
