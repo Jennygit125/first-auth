@@ -1,15 +1,14 @@
-// here lies information for the computer/server noticed all dependencies except mongoose called here seems like a coincidence there should be other function specific dependencies like mongoose
-
-const express = require ("express")
+const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-require ("dotenv").config();
+require("dotenv").config();
 const connectDb = require("./src/config/db");
-const app = express();
-const userRoutes = require("./src/routes/routes.js")
+const userRoutes = require("./src/routes/routes.js");
 
-const port = process.env.PORT|| 4000;
-//middle ware declare tells computer/server to use middleware
+const app = express();
+const port = process.env.PORT || 4000;
+
+// Middleware
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3900",
     credentials: true
@@ -17,21 +16,31 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan("dev"));
 
-//routes tels computer how to use routes
-
-app.get("/", (req,res) =>{
+// Routes
+app.get("/", (req, res) => {
     res.send("Home Page!");
-})
+});
 app.use("/api", userRoutes);
 
-
-
-// funny improvement on my side this connects to db before running on port might be an inefficent format but i don't wanna use if or something like that here
-connectDb().then(()=>{
-    app.listen(port, () => {
-    console.log("server is running for real");
-    })
-})
-.catch(() => {
-    console.log("error connecting to mongoDB");
+// 404 Not Found Handler
+app.use((req, res) => {
+    res.status(404).json({ message: "Route not found" });
 });
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "Internal Server Error" });
+});
+
+// Establish DB connection before starting the server
+connectDb()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running on port`);
+        });
+    })
+    .catch((error) => {
+        console.error("Error connecting to MongoDB:", error.message);
+        process.exit(1); // Exit process with failure
+    });
