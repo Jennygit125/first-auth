@@ -28,7 +28,9 @@ app.use("/api", userRoutes);
 
 // funny improvement on my side this connects to db before running on port might be an inefficent format but i don't wanna use if or something like that here
 connectDb().then(()=>{
+    app.listen(port, () => {
     console.log("server is running for real");
+    })
 })
 .catch(() => {
     console.log("error connecting to mongoDB");
