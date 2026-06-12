@@ -4,6 +4,6 @@
     "app.js": { "runtime": "@vercel/node" }
   },
   "rewrites": [
-    { "source": "/(.*)", "destination": "app.js" }
+    { "source": "/(.*)", "destination": "/app.js" }
   ]
 }
