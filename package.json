@@ -15,13 +15,6 @@
   "packageManager": "pnpm@11.5.0",
   "author": "",
   "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.5.0",
-      "onFail": "download"
-    }
-  },
   "type": "commonjs",
   "dependencies": {
     "bcrypt": "^6.0.0",
